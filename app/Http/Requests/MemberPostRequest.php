@@ -25,24 +25,24 @@ class MemberPostRequest extends FormRequest
     {
         return [
             'name'=> 'required|max:100',
-            'age' => 'required|max:3',
+            'age' => 'required|max:2',
             'address'  => 'required|max:300',
-            //'photo'   => 'image|mimes:png,jpg,jpeg,bmp|max:10000',
+            'photo'   => 'image|mimes:png,jpg,jpeg,tip|max:10000',
         ];
     }
 
     public function messages ()
     {
         return [
-            'name.required'  => 'Please enter your name!',
+            'name.required'  => 'Please enter your name dskafsdj!',
             'name.max'    =>  'Name must be less than 100!',
             'age.required' =>  'Please enter your age',
             'age.max' =>  'Age must be less than 3!',
             'address.required'   => 'Please enter your address!',
             'address.max'   => 'Address must be less than 300',
-            //'photo.image'      => 'This is images type!',
-            //'photo.mimes'      => 'Please choose a valid image : png,jpg,jpeg,bmp',
-            //'photo.max'      => 'Image must be less than 10M'
+            'photo.image'      => 'This is images type!',
+            'photo.mimes'      => 'Please choose a valid image : png,jpg,jpeg,bmp',
+            'photo.max'      => 'Image must be less than 10M'
         ];
     }
 }

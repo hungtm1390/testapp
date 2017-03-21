@@ -140,7 +140,7 @@
                                                    onchange="angular.element(this).scope().imageUpload(event)"
                                             />
                                         </div>
-                                        <label class="col-sm-5 control-label reqPhoto">(jpg|png|gif)(Max:10M)</label>
+                                        <label class="col-sm-5 control-label reqPhoto">(jpg|png|gif)(Max:10MB)</label>
                                     </div>
                                     <span id="err_upload" class="error message messagePhoto"></span>
                                     <div class="form-group" style="margin-left: 70px;    padding-top: 30px;">

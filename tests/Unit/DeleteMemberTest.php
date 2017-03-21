@@ -13,13 +13,13 @@ class DeleteMemberTest extends TestCase
      * @test
      * @return void
      */
-    // Test it can delete user with id
-    public function DeleteMember()
+    // Test it can delete member
+    public function test_it_can_delete_member_with_memberID()
     {
-        $id = "34";
+        $id = "77";
         $response = $this->call('GET', "/details-member/$id");
         $this->assertDatabaseHas('members', ['id' => "$id"]);
-        $response = $this->call('POST', "/delete-member/$id");
-        $this->assertDatabaseHas('members', ['id' => "$id"]);
+        $response = $this->call('POST', "/delete-member", ['id' => "$id"]);
+        $this->assertDatabaseMissing('members', ['id' => "$id"]);
     }
 }

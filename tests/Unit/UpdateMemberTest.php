@@ -14,69 +14,63 @@ class UpdateMemberTest extends TestCase
      * @return void
      */
     protected function assertDatabaseMissingStatus($request_array) {
-        $response = $this->call('POST', '/edit-member/37', $request_array);
-        $this->assertDatabaseMissing('users',
-            ['name' => $request_array['name'], 'address' => $request_array['address'], 'age' => $request_array['age']]);
+        $response = $this->call('POST', '/edit-member/77', $request_array);
+        $this->assertDatabaseMissing(
+            'members', ['name' => $request_array['name'],
+            'address' => $request_array['address'],
+            'age' => $request_array['age']]
+        );
     }
 
-    // Test it can edit member's info
-    public function isEditMember()
+    // Test it can edit member
+    public function test_it_can_edit_member()
     {
         $request_array = [
             'name' => "HaHa",
             'address' => "Thái Thịnh",
-            'age' => "200",
+            'age' => "20",
         ];
-        $response = $this->call('POST', '/edit-member/57', $request_array);
+        $response = $this->call('POST', '/edit-member/77', $request_array);
         $this->assertEquals(200, $response->status());
-        $this->assertDatabaseHas('users',
-            ['name' => $request_array['name'], 'address' => $request_array['address'], 'age' => $request_array['age']]);
+        $this->assertDatabaseHas('members',
+                [
+                    'name' => $request_array['name'],
+                    'address' => $request_array['address'],
+                    'age' => $request_array['age']
+                ]
+        );
     }
 
-    // // Test it return fail with too long name
-    public function isValidateName()
+    // Test it return fail if name is inval
+    public function test_it_is_return_false_if_name_is_inval()
     {
         $request_array = [
             // 101 characters
-            'name' => "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
+            'name' => "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789",
             'address' => "address test",
             'age' => "56",
         ];
         $this->assertDatabaseMissingStatus($request_array);
     }
 
-
-
-    // // Test it return false with blank name field
-    public function isNameEmpty()
+    // Test it return fail if name is inval
+    public function test_it_is_return_false_if_address_is_inval()
     {
         $request_array = [
-            'name' => "",
-            'address' => "address test",
-            'age' => "56"
+            'name' => "90123456789012345678901234567890123456789012345678901234567890123456789",
+            'address' => "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678999",
+            'age' => "56",
         ];
         $this->assertDatabaseMissingStatus($request_array);
     }
 
-
-    // // Test it return fail with blank address field
-    public function isAddressEmpty()
+    // Test it return fail if name is inval
+    public function test_it_is_return_false_if_age_is_inval()
     {
         $request_array = [
-            'name' => "name member test",
-            'address' => "",
-            'age' => "12",
-        ];
-        $this->assertDatabaseMissingStatus($request_array);
-    }
-
-    // // Test it return fails with blank age field
-    public function isAgeEmpty()
-    {
-        $request_array = [
-            'name' => "name member test",
-            'address' => "address test",
-            'age' => "",
+            'name' => "data name test",
+            'address' => "data address test",
+            'age' => "aksdjfks",
         ];
         $this->assertDatabaseMissingStatus($request_array);
     }

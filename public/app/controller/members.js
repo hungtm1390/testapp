@@ -95,7 +95,9 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
         }
         //save memmber then add or edit
         $scope.save = function (states, id) {
-            if($scope.file){
+            var file= $scope.file;
+
+            if((file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/tif') && file.size <= 10*1024*1024){
                 $scope.memberData={
                     //_token : $scope._token,
                     name: $scope.formData.name,
@@ -110,6 +112,9 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
                     age: $scope.formData.age,
                     address: $scope.formData.address,
                 };
+
+                document.getElementById("upload").value = "";
+                document.getElementById("imgThumbnail").src = "";
             }
 
             switch (states) {

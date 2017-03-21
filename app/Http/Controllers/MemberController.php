@@ -49,7 +49,7 @@ class MemberController extends Controller
                                     'message' => 'Add new member success !'
                                 ]);
         }else{
-            response()->json([
+            return response()->json([
                                     'status' => false,
                                     'message' => 'Get Message Validate Form Input'
                                 ]);
@@ -57,7 +57,7 @@ class MemberController extends Controller
     }
 
     //Update Record
-    public function updateMember(Request $request,$id ){
+    public function updateMember(MemberPostRequest $request,$id ){
         $member 				= Members::find($id);
         $member->name = $request->name;
         $member->address = $request->address;
@@ -77,7 +77,7 @@ class MemberController extends Controller
                     'message' => 'Update member success !'
                 ]);
         }else{
-            response()->json([
+            return response()->json([
                 'status' => false,
                 'message' => 'Get Message Validate Form Input'
             ]);
@@ -86,11 +86,12 @@ class MemberController extends Controller
 
 
     //Delete Record
-    public function deleteMember(Request $request ){
+    public function deleteMember(Request $request){
         $this->validate($request, [
             'id' => 'required|exists:members'
         ]);
         $member = Members::findOrFail($request->input('id'));
+
         if (file_exists('upload/img/member/'.$member->photo))
         {
             File::delete('upload/img/member/'.$member->photo);
@@ -98,12 +99,5 @@ class MemberController extends Controller
         $member->delete();
         return "Success deleting user #".$request->input('id');
     }
-
-
-    //funcion test phpunit
-    public function getName(){
-        return "Tran Hung";
-    }
-
 }
 

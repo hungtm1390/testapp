@@ -28,9 +28,9 @@ class UpdateMemberTest extends TestCase
         $request_array = [
             'name' => "HaHa",
             'address' => "Thái Thịnh",
-            'age' => "20",
+            'age' => "27",
         ];
-        $response = $this->call('POST', '/edit-member/77', $request_array);
+        $response = $this->call('POST', '/edit-member/27', $request_array);
         $this->assertEquals(200, $response->status());
         $this->assertDatabaseHas('members',
                 [

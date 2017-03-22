@@ -13,14 +13,15 @@
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
 
-        <testsuite name="Unit Tests">
-            <directory suffix="GetListMemberTest.php">./tests/Unit</directory>
-            <directory suffix="GetDetailsMemberTest.php">./tests/Unit</directory>
-            <directory suffix="AddMemberTest.php">./tests/Unit</directory>
-            <directory suffix="UpdateMemberTest.php">./tests/Unit</directory>
-            <directory suffix="DeleteMemberTest.php">./tests/Unit</directory>
-            <directory suffix="RouteMemberTest.php">./tests/Unit</directory>
-        </testsuite>
+        <testsuites>
+            <testsuite name="Feature Tests">
+                <directory suffix="Test.php">./tests/Feature</directory>
+            </testsuite>
+
+            <testsuite name="Unit Tests">
+                <directory suffix="Test.php">./tests/Unit</directory>
+            </testsuite>
+        </testsuites>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
@@ -33,4 +34,13 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
     </php>
+    <!--
+       <testsuite name="Unit Tests">
+               <directory suffix="AddUserTest.php">./tests/Unit</directory>
+               <directory suffix="AddMemberTest.php">./tests/Unit</directory>
+               <directory suffix="DeleteMemberTest.php">./tests/Unit</directory>
+               <directory suffix="RouterMemberTest.php">./tests/Unit</directory>
+               <directory suffix="UpdateMemberTest.php">./tests/Unit</directory>
+           </testsuite>
+   -->
 </phpunit>

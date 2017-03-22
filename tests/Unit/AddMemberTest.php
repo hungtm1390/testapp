@@ -29,9 +29,9 @@ class AddMemberTest extends TestCase
     public function test_is_new_member()
     {
         $request_array = [
-            'name' => "name member test",
-            'address' => "address test",
-            'age' => "56",
+            'name' => "name member test 1",
+            'address' => "address test 1",
+            'age' => "57",
         ];
         $response = $this->call('POST', 'add-member', $request_array);
         $data = json_decode($response ->getContent(), true);
@@ -47,7 +47,7 @@ class AddMemberTest extends TestCase
     public function test_it_is_return_false_if_name_is_inval()
     {
         $request_array = [
-            'name' => "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567899",
+            'name' => "",
             'address' => "address test",
             'age' => "56",
         ];

@@ -8,8 +8,18 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
             if (pageNumber === undefined) {
                 pageNumber = '1';
             }
-            $http.get('http://testapp2.local:400/list-members' + '?page=' + pageNumber).success(function(response) {
+            $http.get('/list-members' + '?page=' + pageNumber).success(function(response) {
                 $scope.data        = response.data;
+                console.log(response.data);
+                //sort field
+                $scope.reverseOrder = true;
+                $scope.sortField = 'id';
+                $scope.sortBy = function(sortField) {
+                    $scope.sortField = sortField;
+                    $scope.reverseOrder = ($scope.sortField === sortField) ? !$scope.reverseOrder : false;
+
+                };
+
                 $scope.totalPages   = response.last_page;
                 $scope.currentPage  = response.current_page;
                 // Pagination Range
@@ -21,9 +31,7 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
                 $scope.range = pages;
             });
         };
-        /*$http.get(url).success(function (response) {
-            $scope.data = response.data;
-        });*/
+
 
         //show modal form
         //states: add||edit; id = 0: add; id != 0 edit
@@ -44,7 +52,7 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
                 case 'edit':
                     $scope.state = "Edit Member";
                     $scope.id = id;
-                    $http.get("http://testapp2.local:400/details-member/" + id)
+                    $http.get("/details-member/" + id)
                         .success(function (response) {
                             console.log(response);
                             $scope.formData = response;
@@ -96,8 +104,7 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
         //save memmber then add or edit
         $scope.save = function (states, id) {
             var file= $scope.file;
-
-            if((file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/tif') && file.size <= 10*1024*1024){
+            if(file && (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/tif') && file.size <= 10*1024*1024){
                 $scope.memberData={
                     //_token : $scope._token,
                     name: $scope.formData.name,
@@ -141,7 +148,11 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
                     return fd;
                 }
             }).success(function (response) {
-                $http.get('http://testapp2.local:400/list-members').success(function(response) {
+                if($scope.file){
+                   $scope.file={};
+                   console.log($scope.file);
+                }
+                $http.get('/list-members').success(function(response) {
                     $scope.data = response.data;
                 });
                 $('#myModal').modal('hide');
@@ -164,8 +175,8 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
 
         //delete member
         $scope.deleteMember = function (memberId) {
-            $http.post('http://testapp2.local:400/delete-member', {id: memberId}).success(function (data) {
-                $http.get('http://testapp2.local:400/list-members').success(function(response) {
+            $http.post('/delete-member', {id: memberId}).success(function (data) {
+                $http.get('/list-members').success(function(response) {
                     $scope.data = response.data;
                 });
             }).error(function (data) {

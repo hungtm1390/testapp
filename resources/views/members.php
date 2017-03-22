@@ -22,6 +22,9 @@
         .messagePhoto{    margin-left: 71px;
             position: fixed;
             bottom: 145px;}
+        .sort{
+            float: right; line-height: 1.5em;
+        }
     </style>
 </head>
 <body>
@@ -53,22 +56,24 @@
                     <table class="table table-striped table-bordered table-list">
                         <thead>
                         <tr>
-                            <th width="50px" cclass="hidden-xs">ID</th>
-                            <th width="200px">Name</th>
-                            <th width="50px">Age</th>
-                            <th>Address</th>
+                            <th width="100px" cclass="hidden-xs" ng-click="sortBy('id')"><i class="sort fa fa-sort" aria-hidden="true"></i>ID</th>
+                            <th width="200px" ng-click="sortBy('name')"><i class="sort fa fa-sort" aria-hidden="true"></i>Name</th>
+                            <th width="100px" ng-click="sortBy('age')"><i class="sort fa fa-sort" aria-hidden="true"></i>Age</th>
+                            <th ng-click="sortBy('address')"><i class="sort fa fa-sort" aria-hidden="true"></i>Address</th>
                             <th width="200px">Photo</th>
                             <th width="100px"><em class="fa fa-cog"></em></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="members in data">
+                        <tr ng-repeat="members in data | orderBy:sortField:reverseOrder">
                             <td width="50px" class="hidden-xs">{{members.id}}</td>
                             <td width="200px">{{members.name}}</td>
                             <td width="50px">{{members.age}}</td>
                             <td>{{members.address}}</td>
-                            <td width="200px"><img class="img-circle" height="100" width="auto"
-                                     src="/upload/img/member/{{members.photo}}"/></td>
+                            <td width="200px"><img ng-if="members.photo" class="img-circle" height="100" width="auto"
+                                     src="/upload/img/member/{{members.photo}}"/>
+                            <img ng-if="!members.photo" class="img-circle" height="100" width="auto"
+                                 src="/upload/img/member/1490070194.images.png"/></td>
                             <td width="100px" align="center">
                                 <a class="btn btn-default" ng-click="membermanager('edit',members.id)"><em
                                             class="fa fa-pencil"></em></a>
@@ -89,7 +94,7 @@
 
                 <!-- Modal (Pop up when detail button clicked) -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
+                     aria-hidden="true" ng-click="cancel()">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

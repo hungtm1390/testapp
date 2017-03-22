@@ -10,7 +10,6 @@ angular.module("MemberTeamManager", ['ui.bootstrap'])
             }
             $http.get('/list-members' + '?page=' + pageNumber).success(function(response) {
                 $scope.data        = response.data;
-                console.log(response.data);
                 //sort field
                 $scope.reverseOrder = true;
                 $scope.sortField = 'id';
